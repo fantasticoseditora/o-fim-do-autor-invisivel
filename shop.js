@@ -2,7 +2,7 @@
 
 const offer = Object.freeze({
   checkout: "",
-  priceInCents: null,
+  priceInCents: 2990,
   pixel: "582682536736610"
 });
 
@@ -10,16 +10,19 @@ const checkoutLinks = document.querySelectorAll("[data-checkout]");
 const prices = document.querySelectorAll("[data-price]");
 const trackingKeys = /^(utm_[a-z0-9_]+|fbclid|src|sck)$/i;
 
+if (Number.isSafeInteger(offer.priceInCents) && offer.priceInCents > 0) {
+  const price = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+  for (const element of prices) {
+    element.textContent = price.format(offer.priceInCents / 100);
+    element.hidden = false;
+  }
+}
+
 if (offer.checkout && Number.isSafeInteger(offer.priceInCents) && offer.priceInCents > 0) {
   const target = new URL(offer.checkout);
   if (target.protocol === "https:" && target.hostname === "pay.kiwify.com.br") {
     for (const [key, value] of new URLSearchParams(location.search)) {
       if (trackingKeys.test(key)) target.searchParams.append(key, value);
-    }
-    const price = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
-    for (const element of prices) {
-      element.textContent = price.format(offer.priceInCents / 100);
-      element.hidden = false;
     }
     for (const link of checkoutLinks) {
       link.href = target.href;
