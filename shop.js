@@ -1,7 +1,7 @@
 "use strict";
 
 const offer = Object.freeze({
-  checkout: "",
+  checkout: "https://pay.kiwify.com.br/f8JHfCc",
   priceInCents: 2990,
   pixel: "582682536736610"
 });
