@@ -2,23 +2,13 @@
 
 const offer = Object.freeze({
   checkout: "https://pay.kiwify.com.br/f8JHfCc",
-  priceInCents: 2990,
   pixel: "582682536736610"
 });
 
 const checkoutLinks = document.querySelectorAll("[data-checkout]");
-const prices = document.querySelectorAll("[data-price]");
 const trackingKeys = /^(utm_[a-z0-9_]+|fbclid|src|sck)$/i;
 
-if (Number.isSafeInteger(offer.priceInCents) && offer.priceInCents > 0) {
-  const price = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
-  for (const element of prices) {
-    element.textContent = price.format(offer.priceInCents / 100);
-    element.hidden = false;
-  }
-}
-
-if (offer.checkout && Number.isSafeInteger(offer.priceInCents) && offer.priceInCents > 0) {
+if (offer.checkout) {
   const target = new URL(offer.checkout);
   if (target.protocol === "https:" && target.hostname === "pay.kiwify.com.br") {
     for (const [key, value] of new URLSearchParams(location.search)) {
