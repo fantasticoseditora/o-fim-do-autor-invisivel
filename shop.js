@@ -1,7 +1,7 @@
 "use strict";
 
 const offer = Object.freeze({
-  checkout: "https://pay.kiwify.com.br/f8JHfCc",
+  checkout: "https://pay.cakto.com.br/3bryxzk_1329279",
   pixel: "582682536736610"
 });
 
@@ -10,7 +10,7 @@ const trackingKeys = /^(utm_[a-z0-9_]+|fbclid|src|sck)$/i;
 
 if (offer.checkout) {
   const target = new URL(offer.checkout);
-  if (target.protocol === "https:" && target.hostname === "pay.kiwify.com.br") {
+  if (target.protocol === "https:" && target.hostname === "pay.cakto.com.br") {
     for (const [key, value] of new URLSearchParams(location.search)) {
       if (trackingKeys.test(key)) target.searchParams.append(key, value);
     }
